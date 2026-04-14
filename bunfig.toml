@@ -1,0 +1,6 @@
+[install]
+# Bun uses workspaces from package.json "workspaces" field automatically.
+# This file is for additional Bun-specific config.
+
+[install.scopes]
+# Add registry overrides here if needed
