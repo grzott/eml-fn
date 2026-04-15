@@ -16,6 +16,10 @@
     "version-packages": "changeset version",
     "release": "bun run build && changeset publish"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grzott/eml-fn"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.0",
     "@changesets/cli": "^2.27.0",

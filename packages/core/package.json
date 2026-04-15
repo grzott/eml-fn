@@ -41,7 +41,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/user/eml-fn",
+    "url": "https://github.com/grzott/eml-fn",
     "directory": "packages/core"
   },
   "sideEffects": false

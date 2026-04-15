@@ -3,7 +3,7 @@
 ## Setup
 
 ```bash
-git clone https://github.com/user/eml-fn
+git clone https://github.com/grzott/eml-fn
 cd eml-fn
 bun install
 ```
