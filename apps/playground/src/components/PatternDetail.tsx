@@ -1,10 +1,7 @@
-import { useRef, useEffect, useState } from "react";
-import {
-  simulateToCanvas,
-  type NormalizerType,
-} from "@eml-fn/bullet-choreographer";
-import { toFormula } from "@eml-fn/core";
-import type { PatternResult } from "../hooks/usePatternPipeline";
+import { type NormalizerType, simulateToCanvas } from '@eml-fn/bullet-choreographer';
+import { toFormula } from '@eml-fn/core';
+import { useEffect, useRef, useState } from 'react';
+import type { PatternResult } from '../hooks/usePatternPipeline';
 
 interface PatternDetailProps {
   pattern: PatternResult;
@@ -12,18 +9,9 @@ interface PatternDetailProps {
   onNormalizerChange: (n: NormalizerType) => void;
 }
 
-const NORMALIZERS: NormalizerType[] = [
-  "modular",
-  "clamp",
-  "sigmoid",
-  "adaptive",
-];
+const NORMALIZERS: NormalizerType[] = ['modular', 'clamp', 'sigmoid', 'adaptive'];
 
-export function PatternDetail({
-  pattern,
-  normalizer,
-  onNormalizerChange,
-}: PatternDetailProps) {
+export function PatternDetail({ pattern, normalizer, onNormalizerChange }: PatternDetailProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [bulletCount, setBulletCount] = useState(50);
   const [timeSteps, setTimeSteps] = useState(200);
@@ -38,8 +26,8 @@ export function PatternDetail({
       dt: 0.05,
       normalizer,
       bounds: 512,
-      color: "rgba(0, 255, 128, 0.6)",
-      backgroundColor: "#0a0a0f",
+      color: 'rgba(0, 255, 128, 0.6)',
+      backgroundColor: '#0a0a0f',
     });
   }, [pattern, normalizer, bulletCount, timeSteps]);
 
@@ -57,9 +45,7 @@ export function PatternDetail({
           <label>Normalizer</label>
           <select
             value={normalizer}
-            onChange={(e) =>
-              onNormalizerChange(e.target.value as NormalizerType)
-            }
+            onChange={(e) => onNormalizerChange(e.target.value as NormalizerType)}
           >
             {NORMALIZERS.map((n) => (
               <option key={n} value={n}>
@@ -107,9 +93,9 @@ export function PatternDetail({
           <label>Formulas</label>
           <div
             style={{
-              fontSize: "0.8rem",
-              color: "var(--text-dim)",
-              fontFamily: "monospace",
+              fontSize: '0.8rem',
+              color: 'var(--text-dim)',
+              fontFamily: 'monospace',
             }}
           >
             <div>x(t,i) = {xFormula}</div>

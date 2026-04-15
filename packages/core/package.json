@@ -18,11 +18,7 @@
       }
     }
   },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["dist", "README.md", "LICENSE"],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -30,14 +26,7 @@
     "lint": "biome check src/",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [
-    "eml",
-    "exp-minus-log",
-    "math",
-    "symbolic",
-    "expression-tree",
-    "code-generation"
-  ],
+  "keywords": ["eml", "exp-minus-log", "math", "symbolic", "expression-tree", "code-generation"],
   "license": "MIT",
   "repository": {
     "type": "git",

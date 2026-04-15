@@ -1,5 +1,5 @@
-import { evaluate, safeEvaluate } from "@eml-fn/core";
-import type { PatternPair, SimulateOpts, TrajectoryData } from "./types.js";
+import { evaluate, safeEvaluate } from '@eml-fn/core';
+import type { PatternPair, SimulateOpts, TrajectoryData } from './types.js';
 
 const TAU = 2 * Math.PI;
 
@@ -46,12 +46,8 @@ export function simulate(
       }
 
       const vars = { t, i: b, n: bulletCount, tau: TAU };
-      const x = useSafe
-        ? safeEvaluate(pair.xTree, vars, safeOpts)
-        : evaluate(pair.xTree, vars);
-      const y = useSafe
-        ? safeEvaluate(pair.yTree, vars, safeOpts)
-        : evaluate(pair.yTree, vars);
+      const x = useSafe ? safeEvaluate(pair.xTree, vars, safeOpts) : evaluate(pair.xTree, vars);
+      const y = useSafe ? safeEvaluate(pair.yTree, vars, safeOpts) : evaluate(pair.yTree, vars);
 
       if (!Number.isFinite(x) || !Number.isFinite(y)) {
         alive[b] = false;

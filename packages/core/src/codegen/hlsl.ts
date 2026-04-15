@@ -1,4 +1,4 @@
-import type { EmlTree } from "../types.js";
+import type { EmlTree } from '../types.js';
 
 export interface HlslOpts {
   varMap?: Record<string, string>;
@@ -6,25 +6,25 @@ export interface HlslOpts {
 }
 
 const DEFAULT_VAR_MAP: Record<string, string> = {
-  u: "uv.x",
-  v: "uv.y",
-  t: "Time",
-  x: "uv.x",
-  y: "uv.y",
+  u: 'uv.x',
+  v: 'uv.y',
+  t: 'Time',
+  x: 'uv.x',
+  y: 'uv.y',
 };
 
 /** Generate HLSL code from an EML tree. UE5 Custom Expression compatible. */
 export function toHLSL(tree: EmlTree, opts?: HlslOpts): string {
   const varMap = opts?.varMap ?? DEFAULT_VAR_MAP;
-  const funcName = opts?.funcName ?? "emlPattern";
+  const funcName = opts?.funcName ?? 'emlPattern';
   const ctx = new HlslContext(varMap);
   const result = ctx.emit(tree);
 
   const lines: string[] = [
-    "float eml(float x, float y) {",
-    "  return exp(clamp(x, -20.0, 20.0)) - log(max(y, 1e-10));",
-    "}",
-    "",
+    'float eml(float x, float y) {',
+    '  return exp(clamp(x, -20.0, 20.0)) - log(max(y, 1e-10));',
+    '}',
+    '',
     `float ${funcName}(float2 uv) {`,
   ];
 
@@ -33,9 +33,9 @@ export function toHLSL(tree: EmlTree, opts?: HlslOpts): string {
   }
 
   lines.push(`  return ${result};`);
-  lines.push("}");
+  lines.push('}');
 
-  return lines.join("\n");
+  return lines.join('\n');
 }
 
 class HlslContext {
@@ -49,11 +49,11 @@ class HlslContext {
 
   emit(tree: EmlTree): string {
     switch (tree.type) {
-      case "const":
+      case 'const':
         return formatFloat(tree.value);
-      case "var":
+      case 'var':
         return this.varMap[tree.name] ?? tree.name;
-      case "eml": {
+      case 'eml': {
         const left = this.emit(tree.left);
         const right = this.emit(tree.right);
         const name = `v${this.counter++}`;
@@ -66,5 +66,5 @@ class HlslContext {
 
 function formatFloat(v: number): string {
   const s = String(v);
-  return s.includes(".") ? s : `${s}.0`;
+  return s.includes('.') ? s : `${s}.0`;
 }

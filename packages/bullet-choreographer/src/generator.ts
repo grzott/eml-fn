@@ -1,15 +1,12 @@
-import { enumerate } from "@eml-fn/core";
-import type { PatternPair } from "./types.js";
+import { enumerate } from '@eml-fn/core';
+import type { PatternPair } from './types.js';
 
 /**
  * Generate all (xTree, yTree) pattern pairs by enumerating EML trees at the given depth.
  * Depth 2 with leaves {1, t, i} yields 81 × 81 = 6,561 pairs.
  * Uses generators to avoid allocating all pairs at once.
  */
-export function* generatePairs(
-  depth: number,
-  leafTypes: string[],
-): Generator<PatternPair> {
+export function* generatePairs(depth: number, leafTypes: string[]): Generator<PatternPair> {
   // Collect trees into array since we need cartesian product (iterate ×2)
   const trees = [...enumerate(depth, leafTypes)];
 

@@ -1,13 +1,13 @@
-import { constNode, emlNode, varNode } from "@eml-fn/core";
-import { describe, expect, it } from "vitest";
-import { simulate } from "../src/simulator.js";
-import type { PatternPair } from "../src/types.js";
+import { constNode, emlNode, varNode } from '@eml-fn/core';
+import { describe, expect, it } from 'vitest';
+import { simulate } from '../src/simulator.js';
+import type { PatternPair } from '../src/types.js';
 
-describe("simulate", () => {
-  it("returns Float32Array with correct dimensions", () => {
+describe('simulate', () => {
+  it('returns Float32Array with correct dimensions', () => {
     const pair: PatternPair = {
-      xTree: varNode("t"),
-      yTree: varNode("i"),
+      xTree: varNode('t'),
+      yTree: varNode('i'),
     };
     const traj = simulate(pair, 10, 50, 0.016);
 
@@ -18,11 +18,11 @@ describe("simulate", () => {
     expect(traj.dt).toBe(0.016);
   });
 
-  it("position is direct tree output (no physics integration)", () => {
+  it('position is direct tree output (no physics integration)', () => {
     // xTree = t, yTree = i → x should be time, y should be bullet index
     const pair: PatternPair = {
-      xTree: varNode("t"),
-      yTree: varNode("i"),
+      xTree: varNode('t'),
+      yTree: varNode('i'),
     };
     const traj = simulate(pair, 3, 5, 0.1);
 
@@ -34,10 +34,10 @@ describe("simulate", () => {
     expect(traj.positions[idx + 1]).toBeCloseTo(1, 5); // y = i
   });
 
-  it("marks bullet dead on NaN/Infinity in unsafe mode", () => {
+  it('marks bullet dead on NaN/Infinity in unsafe mode', () => {
     // eml(t, t) = exp(t) - ln(t). At t=0, ln(0) = -Infinity → result is Infinity
     const pair: PatternPair = {
-      xTree: emlNode(varNode("t"), varNode("t")),
+      xTree: emlNode(varNode('t'), varNode('t')),
       yTree: constNode(1),
     };
     const traj = simulate(pair, 1, 5, 0.1, { safe: false });
@@ -53,10 +53,10 @@ describe("simulate", () => {
     }
   });
 
-  it("safe mode (default) keeps bullets alive with clamped exp/ln", () => {
+  it('safe mode (default) keeps bullets alive with clamped exp/ln', () => {
     // eml(t, t) would blow up in raw mode but safeEvaluate clamps
     const pair: PatternPair = {
-      xTree: emlNode(varNode("t"), varNode("t")),
+      xTree: emlNode(varNode('t'), varNode('t')),
       yTree: constNode(1),
     };
     const traj = simulate(pair, 1, 10, 0.1);
@@ -69,10 +69,10 @@ describe("simulate", () => {
     }
   });
 
-  it("provides n (bulletCount) and tau (2π) as variables", () => {
+  it('provides n (bulletCount) and tau (2π) as variables', () => {
     const pair: PatternPair = {
-      xTree: varNode("n"),
-      yTree: varNode("tau"),
+      xTree: varNode('n'),
+      yTree: varNode('tau'),
     };
     const traj = simulate(pair, 8, 3, 0.1);
 
@@ -82,7 +82,7 @@ describe("simulate", () => {
     expect(traj.positions[idx + 1]).toBeCloseTo(2 * Math.PI, 5);
   });
 
-  it("correct index layout: data[(step * bulletCount + bulletIdx) * 2]", () => {
+  it('correct index layout: data[(step * bulletCount + bulletIdx) * 2]', () => {
     const pair: PatternPair = {
       xTree: constNode(5),
       yTree: constNode(3),
@@ -98,7 +98,7 @@ describe("simulate", () => {
     }
   });
 
-  it("bullets with valid trees stay alive", () => {
+  it('bullets with valid trees stay alive', () => {
     const pair: PatternPair = {
       xTree: constNode(1),
       yTree: constNode(1),
@@ -110,7 +110,7 @@ describe("simulate", () => {
     }
   });
 
-  it("handles known EML pair: eml(1, 1) = e^1 - ln(1) = e", () => {
+  it('handles known EML pair: eml(1, 1) = e^1 - ln(1) = e', () => {
     const pair: PatternPair = {
       xTree: emlNode(constNode(1), constNode(1)),
       yTree: constNode(0.5),

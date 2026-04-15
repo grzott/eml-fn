@@ -1,13 +1,13 @@
-import type { EmlTree } from "../types.js";
+import type { EmlTree } from '../types.js';
 
 /** Generate NumPy-based Python code from an EML tree. */
 export function toPython(tree: EmlTree): string {
   const lines: string[] = [
-    "import numpy as np",
-    "",
-    "def eml(x, y):",
-    "    return np.exp(x) - np.log(y)",
-    "",
+    'import numpy as np',
+    '',
+    'def eml(x, y):',
+    '    return np.exp(x) - np.log(y)',
+    '',
   ];
 
   const ctx = new PyContext();
@@ -19,7 +19,7 @@ export function toPython(tree: EmlTree): string {
 
   lines.push(`result = ${result}`);
 
-  return lines.join("\n");
+  return lines.join('\n');
 }
 
 class PyContext {
@@ -28,11 +28,11 @@ class PyContext {
 
   emit(tree: EmlTree): string {
     switch (tree.type) {
-      case "const":
+      case 'const':
         return String(tree.value);
-      case "var":
+      case 'var':
         return tree.name;
-      case "eml": {
+      case 'eml': {
         const left = this.emit(tree.left);
         const right = this.emit(tree.right);
         const name = `v${this.counter++}`;

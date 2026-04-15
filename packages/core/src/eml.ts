@@ -1,4 +1,4 @@
-import type { SafeOpts } from "./types.js";
+import type { SafeOpts } from './types.js';
 
 const DEFAULT_MAX_EXP = 500;
 const DEFAULT_MIN_LOG_ARG = 1e-15;
@@ -16,11 +16,9 @@ export function safeEml(x: number, y: number, opts?: SafeOpts): number {
   const clampedX = Math.max(-maxExp, Math.min(x, maxExp));
   const clampedY = Math.max(y, minLogArg);
 
-  if (opts?.onClamp === "warn") {
-    if (clampedX !== x)
-      console.warn(`safeEml: x clamped from ${x} to ${clampedX}`);
-    if (clampedY !== y)
-      console.warn(`safeEml: y clamped from ${y} to ${clampedY}`);
+  if (opts?.onClamp === 'warn') {
+    if (clampedX !== x) console.warn(`safeEml: x clamped from ${x} to ${clampedX}`);
+    if (clampedY !== y) console.warn(`safeEml: y clamped from ${y} to ${clampedY}`);
   }
 
   const result = Math.exp(clampedX) - Math.log(clampedY);

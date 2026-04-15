@@ -1,4 +1,4 @@
-import type { EmlTree, TreeVisitor } from "./types.js";
+import type { EmlTree, TreeVisitor } from './types.js';
 
 /**
  * K-complexity = RPN length = 2*nodeCount + 1 (always odd).
@@ -6,10 +6,10 @@ import type { EmlTree, TreeVisitor } from "./types.js";
  */
 export function kComplexity(tree: EmlTree): number {
   switch (tree.type) {
-    case "const":
-    case "var":
+    case 'const':
+    case 'var':
       return 1;
-    case "eml":
+    case 'eml':
       return kComplexity(tree.left) + kComplexity(tree.right) + 1;
   }
 }
@@ -17,10 +17,10 @@ export function kComplexity(tree: EmlTree): number {
 /** Max depth from root. Leaves have depth 0. */
 export function depth(tree: EmlTree): number {
   switch (tree.type) {
-    case "const":
-    case "var":
+    case 'const':
+    case 'var':
       return 0;
-    case "eml":
+    case 'eml':
       return 1 + Math.max(depth(tree.left), depth(tree.right));
   }
 }
@@ -28,10 +28,10 @@ export function depth(tree: EmlTree): number {
 /** Count of eml (internal) nodes only. */
 export function nodeCount(tree: EmlTree): number {
   switch (tree.type) {
-    case "const":
-    case "var":
+    case 'const':
+    case 'var':
       return 0;
-    case "eml":
+    case 'eml':
       return 1 + nodeCount(tree.left) + nodeCount(tree.right);
   }
 }
@@ -39,10 +39,10 @@ export function nodeCount(tree: EmlTree): number {
 /** Count of leaf nodes (const + var). */
 export function leafCount(tree: EmlTree): number {
   switch (tree.type) {
-    case "const":
-    case "var":
+    case 'const':
+    case 'var':
       return 1;
-    case "eml":
+    case 'eml':
       return leafCount(tree.left) + leafCount(tree.right);
   }
 }
@@ -51,31 +51,26 @@ export function leafCount(tree: EmlTree): number {
 export function equals(a: EmlTree, b: EmlTree): boolean {
   if (a.type !== b.type) return false;
   switch (a.type) {
-    case "const":
+    case 'const':
       return a.value === (b as typeof a).value;
-    case "var":
+    case 'var':
       return a.name === (b as typeof a).name;
-    case "eml":
-      return (
-        equals(a.left, (b as typeof a).left) &&
-        equals(a.right, (b as typeof a).right)
-      );
+    case 'eml':
+      return equals(a.left, (b as typeof a).left) && equals(a.right, (b as typeof a).right);
   }
 }
 
 /** Post-order tree traversal. Returns the result from the root node's visitor call. */
 export function walk<T>(tree: EmlTree, visitor: TreeVisitor<T>): T {
   switch (tree.type) {
-    case "const":
+    case 'const':
       return visitor.const ? visitor.const(tree) : (undefined as T);
-    case "var":
+    case 'var':
       return visitor.var ? visitor.var(tree) : (undefined as T);
-    case "eml": {
+    case 'eml': {
       const leftResult = walk(tree.left, visitor);
       const rightResult = walk(tree.right, visitor);
-      return visitor.eml
-        ? visitor.eml(tree, leftResult, rightResult)
-        : (undefined as T);
+      return visitor.eml ? visitor.eml(tree, leftResult, rightResult) : (undefined as T);
     }
   }
 }

@@ -1,5 +1,5 @@
-import type { EmlTree } from "./types.js";
-import { constNode, emlNode, varNode } from "./types.js";
+import type { EmlTree } from './types.js';
+import { constNode, emlNode, varNode } from './types.js';
 
 /**
  * Catalan number: C(n) = binomial(2n, n) / (n + 1)
@@ -18,7 +18,7 @@ function catalan(n: number): number {
  * '1' produces EmlConst(1), any other string produces EmlVar(name).
  */
 function makeLeaf(leafType: string): EmlTree {
-  return leafType === "1" ? constNode(1) : varNode(leafType);
+  return leafType === '1' ? constNode(1) : varNode(leafType);
 }
 
 /**
@@ -34,10 +34,7 @@ export function countTrees(nodes: number, numLeafTypes: number): number {
  * Each leaf can be any of the given leaf types.
  * Count for structures = Catalan(n). Count per structure = leafTypes.length^(n+1).
  */
-export function* enumerateByNodeCount(
-  n: number,
-  leafTypes: string[],
-): Generator<EmlTree> {
+export function* enumerateByNodeCount(n: number, leafTypes: string[]): Generator<EmlTree> {
   if (n === 0) {
     for (const lt of leafTypes) {
       yield makeLeaf(lt);
@@ -70,10 +67,7 @@ function collectTrees(n: number, leafTypes: string[]): EmlTree[] {
  * Each leaf is one of the `leafTypes` ('1' → const(1), others → var(name)).
  * Yields trees at all depths from 0 to `depth`.
  */
-export function* enumerate(
-  depth: number,
-  leafTypes: string[],
-): Generator<EmlTree> {
+export function* enumerate(depth: number, leafTypes: string[]): Generator<EmlTree> {
   // Enumerate by node count: a tree with n nodes has depth between ceil(log2(n+1)) and n.
   // For simplicity, enumerate all trees up to node counts that can fit within the depth,
   // then filter by actual depth.
@@ -95,10 +89,10 @@ export function* enumerate(
 /** Helper to compute tree depth */
 function treeDepth(tree: EmlTree): number {
   switch (tree.type) {
-    case "const":
-    case "var":
+    case 'const':
+    case 'var':
       return 0;
-    case "eml":
+    case 'eml':
       return 1 + Math.max(treeDepth(tree.left), treeDepth(tree.right));
   }
 }

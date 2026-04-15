@@ -1,4 +1,4 @@
-import type { EmlTree } from "@eml-fn/core";
+import type { EmlTree } from '@eml-fn/core';
 
 /** A pair of EML trees defining x(t,i) and y(t,i) bullet trajectories */
 export interface PatternPair {
@@ -57,17 +57,10 @@ export interface FilterOpts {
 }
 
 /** Trajectory shape tag names */
-export type TagName =
-  | "spiral"
-  | "fan"
-  | "wave"
-  | "ring"
-  | "chaos"
-  | "converge"
-  | "diverge";
+export type TagName = 'spiral' | 'fan' | 'wave' | 'ring' | 'chaos' | 'converge' | 'diverge';
 
 /** Normalization strategy identifier */
-export type NormalizerType = "clamp" | "modular" | "sigmoid" | "adaptive";
+export type NormalizerType = 'clamp' | 'modular' | 'sigmoid' | 'adaptive';
 
 /** Options for canvas rendering */
 export interface RenderOpts {

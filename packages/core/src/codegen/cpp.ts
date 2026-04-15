@@ -1,14 +1,14 @@
-import type { EmlTree } from "../types.js";
+import type { EmlTree } from '../types.js';
 
 /** Generate C++ code using <cmath> from an EML tree. */
 export function toCpp(tree: EmlTree): string {
   const lines: string[] = [
-    "#include <cmath>",
-    "",
-    "double eml(double x, double y) {",
-    "    return std::exp(x) - std::log(y);",
-    "}",
-    "",
+    '#include <cmath>',
+    '',
+    'double eml(double x, double y) {',
+    '    return std::exp(x) - std::log(y);',
+    '}',
+    '',
   ];
 
   const ctx = new CppContext();
@@ -20,7 +20,7 @@ export function toCpp(tree: EmlTree): string {
 
   lines.push(`double result = ${result};`);
 
-  return lines.join("\n");
+  return lines.join('\n');
 }
 
 class CppContext {
@@ -29,11 +29,11 @@ class CppContext {
 
   emit(tree: EmlTree): string {
     switch (tree.type) {
-      case "const":
+      case 'const':
         return formatDouble(tree.value);
-      case "var":
+      case 'var':
         return tree.name;
-      case "eml": {
+      case 'eml': {
         const left = this.emit(tree.left);
         const right = this.emit(tree.right);
         const name = `v${this.counter++}`;
@@ -46,5 +46,5 @@ class CppContext {
 
 function formatDouble(v: number): string {
   const s = String(v);
-  return s.includes(".") ? s : `${s}.0`;
+  return s.includes('.') ? s : `${s}.0`;
 }

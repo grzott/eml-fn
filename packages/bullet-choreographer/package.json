@@ -28,11 +28,7 @@
       }
     }
   },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["dist", "README.md", "LICENSE"],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -51,14 +47,7 @@
       "optional": true
     }
   },
-  "keywords": [
-    "eml",
-    "bullet-hell",
-    "particle",
-    "trajectory",
-    "procedural",
-    "game-dev"
-  ],
+  "keywords": ["eml", "bullet-hell", "particle", "trajectory", "procedural", "game-dev"],
   "license": "MIT",
   "sideEffects": false
 }

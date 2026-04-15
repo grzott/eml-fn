@@ -1,6 +1,6 @@
-import { normalizeAdaptive, normalizers } from "./normalizer.js";
-import { simulate } from "./simulator.js";
-import type { PatternPair, RenderOpts } from "./types.js";
+import { normalizeAdaptive, normalizers } from './normalizer.js';
+import { simulate } from './simulator.js';
+import type { PatternPair, RenderOpts } from './types.js';
 
 /**
  * Simulate a pattern pair and render bullet trails to a 2D canvas.
@@ -14,12 +14,12 @@ export function simulateToCanvas(
   const bulletCount = opts?.bulletCount ?? 50;
   const timeSteps = opts?.timeSteps ?? 200;
   const dt = opts?.dt ?? 0.016;
-  const color = opts?.color ?? "rgba(0, 255, 128, 0.6)";
-  const backgroundColor = opts?.backgroundColor ?? "#000";
-  const normType = opts?.normalizer ?? "modular";
+  const color = opts?.color ?? 'rgba(0, 255, 128, 0.6)';
+  const backgroundColor = opts?.backgroundColor ?? '#000';
+  const normType = opts?.normalizer ?? 'modular';
   const bounds = opts?.bounds ?? Math.min(canvas.width, canvas.height);
 
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
   const traj = simulate(pair, bulletCount, timeSteps, dt, {
@@ -28,7 +28,7 @@ export function simulateToCanvas(
   });
 
   // Apply normalizer
-  if (normType === "adaptive") {
+  if (normType === 'adaptive') {
     normalizeAdaptive(traj.positions, bounds);
   } else {
     const norm = normalizers[normType];

@@ -1,10 +1,6 @@
-import { useRef, useEffect, useState } from "react";
-import {
-  simulateToCanvas,
-  type NormalizerType,
-  type TagName,
-} from "@eml-fn/bullet-choreographer";
-import type { PatternResult } from "../hooks/usePatternPipeline";
+import { type NormalizerType, type TagName, simulateToCanvas } from '@eml-fn/bullet-choreographer';
+import { useEffect, useRef, useState } from 'react';
+import type { PatternResult } from '../hooks/usePatternPipeline';
 
 interface PatternGalleryProps {
   patterns: PatternResult[];
@@ -43,7 +39,7 @@ export function PatternGallery({
 
       <div className="tag-filters">
         <button
-          className={`tag-btn ${tagFilter === null ? "active" : ""}`}
+          className={`tag-btn ${tagFilter === null ? 'active' : ''}`}
           onClick={() => onTagFilter(null)}
         >
           All
@@ -51,7 +47,7 @@ export function PatternGallery({
         {allTags.map((tag) => (
           <button
             key={tag}
-            className={`tag-btn ${tagFilter === tag ? "active" : ""}`}
+            className={`tag-btn ${tagFilter === tag ? 'active' : ''}`}
             onClick={() => onTagFilter(tagFilter === tag ? null : tag)}
           >
             {tag}
@@ -71,10 +67,7 @@ export function PatternGallery({
         ))}
         {hasMore && (
           <div className="load-more-row">
-            <button
-              className="load-more-btn"
-              onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-            >
+            <button className="load-more-btn" onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}>
               Load more ({patterns.length - visibleCount} remaining)
             </button>
           </div>
@@ -105,18 +98,15 @@ function GalleryItem({
       bulletCount: 30,
       timeSteps: 120,
       dt: 0.05,
-      normalizer: "adaptive",
+      normalizer: 'adaptive',
       bounds: 128,
-      color: "rgba(0, 255, 128, 0.7)",
-      backgroundColor: "#0a0a0f",
+      color: 'rgba(0, 255, 128, 0.7)',
+      backgroundColor: '#0a0a0f',
     });
   }, [pattern, normalizer]);
 
   return (
-    <div
-      className={`gallery-item ${isSelected ? "selected" : ""}`}
-      onClick={onSelect}
-    >
+    <div className={`gallery-item ${isSelected ? 'selected' : ''}`} onClick={onSelect}>
       <canvas ref={canvasRef} width={128} height={128} />
       <div className="gallery-tags">
         {pattern.tags.map((tag) => (

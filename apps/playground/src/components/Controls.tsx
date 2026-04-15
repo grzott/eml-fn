@@ -1,36 +1,29 @@
-import { useState } from "react";
-import type { FilterOpts } from "@eml-fn/bullet-choreographer";
+import type { FilterOpts } from '@eml-fn/bullet-choreographer';
+import { useState } from 'react';
 
 interface ControlsProps {
   isProcessing: boolean;
   stats: { total: number; survived: number; timeMs: number };
-  onGenerate: (
-    depth: number,
-    leafTypes: string[],
-    maxPairs: number,
-    opts?: FilterOpts,
-  ) => void;
+  onGenerate: (depth: number, leafTypes: string[], maxPairs: number, opts?: FilterOpts) => void;
 }
 
 const ALL_LEAVES = [
-  { id: "1", label: "1", title: "Constant 1" },
-  { id: "t", label: "t", title: "Time" },
-  { id: "i", label: "i", title: "Bullet index" },
-  { id: "n", label: "n", title: "Total bullet count" },
-  { id: "tau", label: "τ", title: "2π ≈ 6.28" },
+  { id: '1', label: '1', title: 'Constant 1' },
+  { id: 't', label: 't', title: 'Time' },
+  { id: 'i', label: 'i', title: 'Bullet index' },
+  { id: 'n', label: 'n', title: 'Total bullet count' },
+  { id: 'tau', label: 'τ', title: '2π ≈ 6.28' },
 ] as const;
 
 const DEPTH_OPTIONS = [
-  { value: 1, label: "1 (quick)", pairs: "~170" },
-  { value: 2, label: "2 (medium)", pairs: "~21K" },
-  { value: 3, label: "3 (deep, sampled)", pairs: "~15K sampled" },
+  { value: 1, label: '1 (quick)', pairs: '~170' },
+  { value: 2, label: '2 (medium)', pairs: '~21K' },
+  { value: 3, label: '3 (deep, sampled)', pairs: '~15K sampled' },
 ] as const;
 
 export function Controls({ isProcessing, stats, onGenerate }: ControlsProps) {
   const [depth, setDepth] = useState(2);
-  const [leaves, setLeaves] = useState<Set<string>>(
-    new Set(["1", "t", "i", "n"]),
-  );
+  const [leaves, setLeaves] = useState<Set<string>>(new Set(['1', 't', 'i', 'n']));
   const [maxPairs, setMaxPairs] = useState(15000);
 
   const toggleLeaf = (leaf: string) => {
@@ -53,10 +46,7 @@ export function Controls({ isProcessing, stats, onGenerate }: ControlsProps) {
     <div className="controls">
       <div className="control-group">
         <label>Depth</label>
-        <select
-          value={depth}
-          onChange={(e) => setDepth(Number(e.target.value))}
-        >
+        <select value={depth} onChange={(e) => setDepth(Number(e.target.value))}>
           {DEPTH_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
@@ -91,17 +81,13 @@ export function Controls({ isProcessing, stats, onGenerate }: ControlsProps) {
             step={1000}
             value={maxPairs}
             onChange={(e) => setMaxPairs(Number(e.target.value))}
-            style={{ width: "5rem" }}
+            style={{ width: '5rem' }}
           />
         </div>
       )}
 
-      <button
-        className="generate-btn"
-        onClick={handleGenerate}
-        disabled={isProcessing}
-      >
-        {isProcessing ? "Processing..." : "Generate & Filter"}
+      <button className="generate-btn" onClick={handleGenerate} disabled={isProcessing}>
+        {isProcessing ? 'Processing...' : 'Generate & Filter'}
       </button>
 
       {stats.survived > 0 && (

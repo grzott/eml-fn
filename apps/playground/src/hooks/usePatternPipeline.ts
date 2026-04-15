@@ -1,14 +1,13 @@
-import { useState, useCallback } from "react";
 import {
-  generatePairs,
-  generatePairsSampled,
-  filterDegenerate,
-  autoTag,
-  type PatternPair,
-  type TrajectoryData,
-  type TagName,
   type FilterOpts,
-} from "@eml-fn/bullet-choreographer";
+  type PatternPair,
+  type TagName,
+  type TrajectoryData,
+  autoTag,
+  filterDegenerate,
+  generatePairsSampled,
+} from '@eml-fn/bullet-choreographer';
+import { useCallback, useState } from 'react';
 
 export interface PatternResult {
   pair: PatternPair;
@@ -22,12 +21,7 @@ export function usePatternPipeline() {
   const [stats, setStats] = useState({ total: 0, survived: 0, timeMs: 0 });
 
   const generate = useCallback(
-    (
-      depth: number,
-      leafTypes: string[],
-      maxPairs: number,
-      filterOpts?: FilterOpts,
-    ) => {
+    (depth: number, leafTypes: string[], maxPairs: number, filterOpts?: FilterOpts) => {
       setIsProcessing(true);
       setPatterns([]);
 
@@ -38,10 +32,7 @@ export function usePatternPipeline() {
         const pairs = generatePairsSampled(depth, leafTypes, maxPairs);
         const results: PatternResult[] = [];
 
-        for (const { pair, trajectory } of filterDegenerate(
-          pairs,
-          filterOpts,
-        )) {
+        for (const { pair, trajectory } of filterDegenerate(pairs, filterOpts)) {
           const tags = autoTag(pair, trajectory);
           pair.tags = tags;
           results.push({ pair, trajectory, tags });

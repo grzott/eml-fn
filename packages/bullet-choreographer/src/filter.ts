@@ -1,12 +1,7 @@
-import { simulate } from "./simulator.js";
-import type {
-  FilterOpts,
-  PatternPair,
-  SimulateOpts,
-  TrajectoryData,
-} from "./types.js";
+import { simulate } from './simulator.js';
+import type { FilterOpts, PatternPair, SimulateOpts, TrajectoryData } from './types.js';
 
-const DEFAULTS: Required<Omit<FilterOpts, "simulate">> & {
+const DEFAULTS: Required<Omit<FilterOpts, 'simulate'>> & {
   simulate: SimulateOpts;
 } = {
   bulletCount: 50,
@@ -85,11 +80,7 @@ function isStatic(traj: TrajectoryData, threshold: number): boolean {
 }
 
 /** Reject if all bullets exit bounds within first oobSteps steps */
-function isOOB(
-  traj: TrajectoryData,
-  bounds: number,
-  oobSteps: number,
-): boolean {
+function isOOB(traj: TrajectoryData, bounds: number, oobSteps: number): boolean {
   const stepsToCheck = Math.min(oobSteps, traj.timeSteps);
 
   for (let step = 0; step < stepsToCheck; step++) {

@@ -1,9 +1,5 @@
-import { useState } from "react";
-import {
-  exportTypescript,
-  exportJSON,
-  type PatternPair,
-} from "@eml-fn/bullet-choreographer";
+import { type PatternPair, exportJSON, exportTypescript } from '@eml-fn/bullet-choreographer';
+import { useState } from 'react';
 
 interface ExportPanelProps {
   pair: PatternPair;
@@ -25,22 +21,16 @@ export function ExportPanel({ pair }: ExportPanelProps) {
     <div className="export-panel">
       <h3>
         TypeScript Export
-        <button
-          className="copy-btn"
-          onClick={() => copyToClipboard(tsCode, "ts")}
-        >
-          {copied === "ts" ? "Copied!" : "Copy"}
+        <button className="copy-btn" onClick={() => copyToClipboard(tsCode, 'ts')}>
+          {copied === 'ts' ? 'Copied!' : 'Copy'}
         </button>
       </h3>
       <pre className="export-code">{tsCode}</pre>
 
       <h3>
         JSON Export
-        <button
-          className="copy-btn"
-          onClick={() => copyToClipboard(jsonCode, "json")}
-        >
-          {copied === "json" ? "Copied!" : "Copy"}
+        <button className="copy-btn" onClick={() => copyToClipboard(jsonCode, 'json')}>
+          {copied === 'json' ? 'Copied!' : 'Copy'}
         </button>
       </h3>
       <pre className="export-code">{jsonCode}</pre>

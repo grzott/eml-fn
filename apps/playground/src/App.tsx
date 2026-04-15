@@ -1,23 +1,18 @@
-import { useState } from "react";
-import type { NormalizerType, TagName } from "@eml-fn/bullet-choreographer";
-import { Controls } from "./components/Controls";
-import { PatternGallery } from "./components/PatternGallery";
-import { PatternDetail } from "./components/PatternDetail";
-import { ExportPanel } from "./components/ExportPanel";
-import {
-  usePatternPipeline,
-  type PatternResult,
-} from "./hooks/usePatternPipeline";
+import type { NormalizerType, TagName } from '@eml-fn/bullet-choreographer';
+import { useState } from 'react';
+import { Controls } from './components/Controls';
+import { ExportPanel } from './components/ExportPanel';
+import { PatternDetail } from './components/PatternDetail';
+import { PatternGallery } from './components/PatternGallery';
+import { type PatternResult, usePatternPipeline } from './hooks/usePatternPipeline';
 
 export function App() {
   const { patterns, isProcessing, stats, generate } = usePatternPipeline();
   const [selected, setSelected] = useState<PatternResult | null>(null);
-  const [normalizer, setNormalizer] = useState<NormalizerType>("adaptive");
+  const [normalizer, setNormalizer] = useState<NormalizerType>('adaptive');
   const [tagFilter, setTagFilter] = useState<TagName | null>(null);
 
-  const filtered = tagFilter
-    ? patterns.filter((p) => p.tags.includes(tagFilter))
-    : patterns;
+  const filtered = tagFilter ? patterns.filter((p) => p.tags.includes(tagFilter)) : patterns;
 
   return (
     <>
@@ -28,17 +23,9 @@ export function App() {
         </h1>
       </div>
 
-      <Controls
-        isProcessing={isProcessing}
-        stats={stats}
-        onGenerate={generate}
-      />
+      <Controls isProcessing={isProcessing} stats={stats} onGenerate={generate} />
 
-      {isProcessing && (
-        <div className="processing-overlay">
-          Generating & filtering patterns...
-        </div>
-      )}
+      {isProcessing && <div className="processing-overlay">Generating & filtering patterns...</div>}
 
       {!isProcessing && patterns.length > 0 && (
         <div className="main-layout">
@@ -65,18 +52,14 @@ export function App() {
                 <ExportPanel pair={selected.pair} />
               </>
             ) : (
-              <div className="empty-state">
-                Select a pattern from the gallery
-              </div>
+              <div className="empty-state">Select a pattern from the gallery</div>
             )}
           </div>
         </div>
       )}
 
       {!isProcessing && patterns.length === 0 && (
-        <div className="empty-state">
-          Configure depth & leaves, then click Generate & Filter
-        </div>
+        <div className="empty-state">Configure depth & leaves, then click Generate & Filter</div>
       )}
     </>
   );
